@@ -24,6 +24,12 @@ const createContact = asyncHandler(async (req, res) => {
       res.status(400).json({ message: "All fields are mandatory." });
       throw new Error("All fields are mandatory.");
     }
+
+    const existingContact = await Contact.findOne({ $or: [{ number }, { email }] });
+    if (existingContact) {
+        res.status(400).json({ message: "Phone number or email already in use." });
+        throw new Error("Phone number or email already in use.");
+    }
   
     const contact = await Contact.create({
       firstName,
