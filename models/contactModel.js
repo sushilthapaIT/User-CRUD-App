@@ -4,7 +4,7 @@ const contactSchema = mongoose.Schema(
     {
         user_id: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true,
+            required: false,
             ref: "User",
         },
         firstName: {
@@ -42,13 +42,11 @@ const contactSchema = mongoose.Schema(
             type: String,
             required: [true, "Please add the contact phone number."],
             unique: true,
-            match: [/^\d{10}$/, 'Please add a valid phone number'] // Validate phone number
         },
         email: {
             type: String,
             required: [true, "Please add your email address."],
             unique: true,
-            match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Please add a valid email address'] // Validate email
         },
         userNotes: {
             type: String,

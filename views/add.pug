@@ -1,0 +1,77 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css")  
+  body
+    .container.mt-5
+      h1.mb-4 Add User
+      
+      form(action="/users/add" method="POST" class="needs-validation" novalidate)
+        
+        //- First Name
+        .mb-3
+          label(for="firstName" class="form-label") First Name
+          input(type="text" name="firstName" class="form-control" required placeholder="Enter first name")
+          .invalid-feedback Please add your First Name.
+        
+        //- Last Name
+        .mb-3
+          label(for="lastName" class="form-label") Last Name
+          input(type="text" name="lastName" class="form-control" required placeholder="Enter last name")
+          .invalid-feedback Please add your Last Name.
+
+        //- Date of Birth
+        .mb-3
+          label(for="dob" class="form-label") Date of Birth
+          input(type="date" name="dob" class="form-control" required)
+          .invalid-feedback Please add your Date of Birth.
+
+        //- Address 1
+        .mb-3
+          label(for="address1" class="form-label") Address 1
+          input(type="text" name="address1" class="form-control" required placeholder="Enter address line 1")
+          .invalid-feedback Please add your address.
+
+        //- Address 2
+        .mb-3
+          label(for="address2" class="form-label") Address 2
+          input(type="text" name="address2" class="form-control" placeholder="Enter address line 2 (optional)")
+
+        //- City
+        .mb-3
+          label(for="city" class="form-label") City
+          input(type="text" name="city" class="form-control" required placeholder="Enter city")
+          .invalid-feedback Please add your city.
+
+        //- Postal Code
+        .mb-3
+          label(for="postalCode" class="form-label") Postal Code
+          input(type="text" name="postalCode" class="form-control" required placeholder="Enter postal code")
+          .invalid-feedback Please add your postal code.
+
+        //- Country
+        .mb-3
+          label(for="country" class="form-label") Country
+          input(type="text" name="country" class="form-control" required placeholder="Enter country")
+          .invalid-feedback Please add your country.
+
+        //- Phone Number
+        .mb-3
+          label(for="number" class="form-label") Phone Number
+          input(type="text" name="number" class="form-control" required pattern="\\d{10}" placeholder="Enter 10-digit phone number")
+          .invalid-feedback Please add a valid phone number.
+
+        //- Email
+        .mb-3
+          label(for="email" class="form-label") Email
+          input(type="email" name="email" class="form-control" required placeholder="Enter email address")
+          .invalid-feedback Please add a valid email address.
+
+        //- User Notes
+        .mb-3
+          label(for="userNotes" class="form-label") User Notes
+          textarea(name="userNotes" class="form-control" rows="3" placeholder="Add any notes about the user (optional)")
+        
+        //- Submit Button
+        button(type="submit" class="btn btn-primary mt-3") Add User

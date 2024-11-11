@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css")
+  body
+    h1 User List
+    table(class="table")
+      thead
+        tr
+          th First Name
+          th Last Name
+          th Date of Birth
+          th Address 1
+          th Address 2
+          th City
+          th Postal Code
+          th Country
+          th Phone Number
+          th Email
+          th Notes
+          th Actions
+      tbody
+        // Check if users exist and are not empty
+        if users && users.length > 0
+          each user in users
+            tr
+              td= user.firstName
+              td= user.lastName
+              td= user.dob ? user.dob.toLocaleDateString() : 'N/A'
+              td= user.address1
+              td= user.address2 || 'N/A'
+              td= user.city
+              td= user.postalCode
+              td= user.country
+              td= user.number
+              td= user.email
+              td= user.userNotes || 'N/A'
+              td
+                button(type="button") Edit
+                button(type="button") Delete
+        else
+          tr
+            td(colspan="12") No users found.

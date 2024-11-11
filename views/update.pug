@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= title
+link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css")  
+body
+    h1 Update User
+    form(action=`/users/update/${user._id}` method="POST")
+      label(for="firstName") First Name
+      input(type="text" name="firstName" value=user.firstName required)
+      
+      label(for="lastName") Last Name
+      input(type="text" name="lastName" value=user.lastName required)
+      
+      //- Add other fields similarly
+
+      button(type="submit") Update User
+    form(action=`/users/delete/${user._id}` method="POST")
+      button(type="submit") Delete User
