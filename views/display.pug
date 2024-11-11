@@ -2,43 +2,62 @@ doctype html
 html
   head
     title= title
-    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
+
   body
-    h1 User List
-    table(class="table")
-      thead
-        tr
-          th First Name
-          th Last Name
-          th Date of Birth
-          th Address 1
-          th Address 2
-          th City
-          th Postal Code
-          th Country
-          th Phone Number
-          th Email
-          th Notes
-          th Actions
-      tbody
-        // Check if users exist and are not empty
-        if users && users.length > 0
-          each user in users
-            tr
-              td= user.firstName
-              td= user.lastName
-              td= user.dob ? user.dob.toLocaleDateString() : 'N/A'
-              td= user.address1
-              td= user.address2 || 'N/A'
-              td= user.city
-              td= user.postalCode
-              td= user.country
-              td= user.number
-              td= user.email
-              td= user.userNotes || 'N/A'
-              td
-                button(type="button") Edit
-                button(type="button") Delete
-        else
+    .container.mt-5
+      h1.text-center.mb-4 User List
+
+      //- Table for displaying users
+      table(class="table table-striped table-hover")
+        thead
           tr
-            td(colspan="12") No users found.
+            th First Name
+            th Last Name
+            th Date of Birth
+            th Address 1
+            th Address 2
+            th City
+            th Postal Code
+            th Country
+            th Phone Number
+            th Email
+            th Notes
+            th Actions
+        tbody
+          //- Check if users exist and are not empty
+          if users && users.length > 0
+            each user in users
+              tr
+                td= user.firstName
+                td= user.lastName
+                td= user.dob ? user.dob.toLocaleDateString() : 'N/A'
+                td= user.address1
+                td= user.address2 || 'N/A'
+                td= user.city
+                td= user.postalCode
+                td= user.country
+                td= user.number
+                td= user.email
+                td= user.userNotes || 'N/A'
+                td
+                  //- Edit button linking to the update page
+                  a(href=`/users/update/${user._id}`, class="btn btn-warning btn-sm me-2") Edit
+                  //- Delete button within a form to trigger a POST request
+                  form(action=`/users/delete/${user._id}`, method="POST", style="display:inline")
+                    button(type="submit", class="btn btn-danger btn-sm") Delete
+          else
+            tr
+              td(colspan="12", class="text-center") No users found.
+
+    // Optional custom styles
+    style.
+      table {
+        border-collapse: collapse;
+      }
+      td, th {
+        text-align: center;
+      }
+      .btn-sm {
+        padding: 0.25rem 0.5rem;
+      }

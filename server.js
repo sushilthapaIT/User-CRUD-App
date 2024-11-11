@@ -21,7 +21,6 @@
 
 
 
-// server.js
 // Header Comment: Your name and CNumber
 
 const express = require("express");
@@ -29,7 +28,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const errorHandler = require("./middleware/errorHandler");
 const connectDB = require("./config/dbConnection");
-const Contact = require("./models/contactModel");
+const Contact = require("./models/contactModel");  // Assuming 'contactModel' corresponds to the 'users' collection
 
 connectDB();  // Connect to MongoDB using your own connectDB function
 
@@ -47,63 +46,68 @@ app.use(express.static("public"));  // Serve static files from the public direct
 // Home page, redirects to the users display page
 app.get("/", (req, res) => res.redirect("/users"));
 
-// Add Contact Page
+// Add User Page (using 'contact' model here for users)
 app.get("/users/add", (req, res) => {
-    res.render("add", { title: "Add Contact" });
+    res.render("add", { title: "Add User" });  // Adjusted title to "Add User"
 });
 
-// Add Contact (POST request)
+// Add User (POST request to save user)
 app.post("/users/add", async (req, res) => {
     try {
-        const contact = new Contact(req.body);
+        const contact = new Contact(req.body);  // Using 'Contact' model for creating a new user
         await contact.save();
-        res.redirect("/users");
+        res.redirect("/users");  // Redirect to the list of users (contacts)
     } catch (error) {
-        res.status(400).send("Error adding contact: " + error.message);
+        res.status(400).send("Error adding user: " + error.message);  // Improved error message
     }
 });
 
-// Update Contact Page (GET request to show the form)
+// Update User Page (GET request to show the form)
 app.get("/users/update/:id", async (req, res) => {
     try {
+        // Fetch the user by ID
         const contact = await Contact.findById(req.params.id);
+        
         if (!contact) {
-            return res.status(404).send("Contact not found");
+            return res.status(404).send("User not found");
         }
-        res.render("update", { title: "Update Contact", contact });
+
+        // Pass 'contact' object to the view as 'user'
+        res.render("update", { title: "Update User", user: contact });
     } catch (error) {
-        res.status(400).send("Error retrieving contact for update: " + error.message);
+        res.status(400).send("Error retrieving user for update: " + error.message);
     }
 });
 
-// Update Contact (POST request to save the changes)
+
+// Update User (POST request to save the changes)
 app.post("/users/update/:id", async (req, res) => {
     try {
-        await Contact.findByIdAndUpdate(req.params.id, req.body);
-        res.redirect("/users");
+        await Contact.findByIdAndUpdate(req.params.id, req.body);  // Using 'Contact' model to update user
+        res.redirect("/users");  // Redirect to the list of users after update
     } catch (error) {
-        res.status(400).send("Error updating contact: " + error.message);
+        res.status(400).send("Error updating user: " + error.message);  // Improved error message
     }
 });
 
-// Delete Contact (POST request to delete the contact)
+// Delete User (POST request to delete the user)
 app.post("/users/delete/:id", async (req, res) => {
     try {
-        await Contact.findByIdAndDelete(req.params.id);
-        res.redirect("/users");
+        await Contact.findByIdAndDelete(req.params.id);  // Delete the user from the 'contact' collection
+        res.redirect("/users");  // Redirect to the list of users after deletion
     } catch (error) {
-        res.status(400).send("Error deleting contact: " + error.message);
+        res.status(400).send("Error deleting user: " + error.message);  // Improved error message
     }
 });
 
-// Display Contacts Page
+// Display Users Page (Show all users in the 'users' collection)
 app.get("/users", async (req, res) => {
     try {
-        const contacts = await Contact.find();  // Use the correct model here
-        res.render("display", { title: "Contact List", users: contacts || [] });  // Pass contacts as an empty array if undefined
+        const contacts = await Contact.find();  // Use the 'Contact' model to fetch all users
+        res.render("display", { title: "User List", users: contacts || [] });  // Pass contacts as an empty array if undefined
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error fetching contacts.");
+        res.status(500).send("Error fetching users.");  // Improved error message
     }
 });
 
