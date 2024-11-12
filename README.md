@@ -59,6 +59,4 @@ which can be MongoDB Atlas credentials.
    ```
 
 6. Access the Application
-   ```
   Open your web browser and go to http://localhost:5000 (or the port you set in .env). You should see the home page of the application
-   ```
