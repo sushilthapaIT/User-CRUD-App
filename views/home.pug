@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Home
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
+
+  body
+    .container.mt-5
+      h1.mb-4.text-center.text-white Welcome to User Management
+
+      .text-center
+        p.lead.text-white Manage users with ease. You can add new users or view the list of existing users.
+
+      .row.justify-content-center.mt-5
+        .col-md-4
+          a(href="/users/add" class="btn btn-primary w-100 mb-3") Add User
+        .col-md-4
+          a(href="/users" class="btn btn-secondary w-100") Display Users
+
+      style.
+        body {
+          background-color: #000;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+        }
+        .container {
+          max-width: 600px;
+          background-color: #333;
+          padding: 2rem;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+          color: #fff;
+        }
