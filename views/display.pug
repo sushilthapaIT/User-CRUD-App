@@ -5,25 +5,37 @@ html
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
 
   body
+    nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+      .container-fluid
+        a(class="navbar-brand" href="/") Home
+        button(class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+          span(class="navbar-toggler-icon")
+        .collapse.navbar-collapse#navbarNav
+          ul(class="navbar-nav")
+            li(class="nav-item")
+              a(class="nav-link active" href="/users/add") ADD
+            li(class="nav-item")
+              a(class="nav-link" href="/users") DISPLAY
+
     .container.mt-5
-      h1.text-center.mb-4 User List
+      h1.text-center.mb-4.text-white User List
 
       //- Table for displaying users
-      table(class="table table-striped table-hover")
+      table(class="table table-dark table-striped table-hover")
         thead
           tr
-            th First Name
-            th Last Name
-            th Date of Birth
-            th Address 1
-            th Address 2
-            th City
-            th Postal Code
-            th Country
-            th Phone Number
-            th Email
-            th Notes
-            th Actions
+            th.text-white First Name
+            th.text-white Last Name
+            th.text-white Date of Birth
+            th.text-white Address 1
+            th.text-white Address 2
+            th.text-white City
+            th.text-white Postal Code
+            th.text-white Country
+            th.text-white Phone Number
+            th.text-white Email
+            th.text-white Notes
+            th.text-white Actions
         tbody
           //- Check if users exist and are not empty
           if users && users.length > 0
@@ -41,23 +53,53 @@ html
                 td= user.email
                 td= user.userNotes || 'N/A'
                 td
-                  //- Edit button linking to the update page
                   a(href=`/users/update/${user._id}`, class="btn btn-warning btn-sm me-2") Edit
-                  //- Delete button within a form to trigger a POST request
                   form(action=`/users/delete/${user._id}`, method="POST", style="display:inline")
                     button(type="submit", class="btn btn-danger btn-sm") Delete
           else
             tr
-              td(colspan="12", class="text-center") No users found.
+              td(colspan="12", class="text-center text-white") No users found.
 
-    // Optional custom styles
+      //- Pagination Controls
+      if totalPages > 1
+        .pagination.d-flex.justify-content-center.mt-4
+          if currentPage > 1
+            a(href=`/users?page=${currentPage - 1}`, class="page-link") Previous
+          else
+            span(class="page-link disabled") Previous
+
+          //- Loop through and create page numbers dynamically
+          each page in Array.from({ length: totalPages }, (_, i) => i + 1)
+            a(href=`/users?page=${page}`, class=`page-link ${currentPage === page ? 'active' : ''}`) #{page}
+
+          if currentPage < totalPages
+            a(href=`/users?page=${currentPage + 1}`, class="page-link") Next
+          else
+            span(class="page-link disabled") Next
+
     style.
+      body {
+        background-color: #000;
+        color: #fff;
+      }
       table {
-        border-collapse: collapse;
+        color: #fff;
+        background-color: #333;
       }
-      td, th {
-        text-align: center;
+      .pagination {
+        list-style: none;
+        padding: 0;
       }
-      .btn-sm {
-        padding: 0.25rem 0.5rem;
+      .pagination .page-link {
+        color: #fff;
+        background-color: #333;
+        border-color: #444;
+      }
+      .pagination .active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .pagination .disabled .page-link {
+        color: #ccc;
+        pointer-events: none;
       }
