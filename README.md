@@ -23,8 +23,11 @@ This is a simple CRUD application for user management using Node.js with Express
 
 ## Application Preview
 <img src="images/homepage.png" width="250" />
+Homepage
 <img src="images/add.png"      width="250" />
+Add Page
 <img src="images/display.png"  width="250" />
+View Page
 
 
 ## Setup
