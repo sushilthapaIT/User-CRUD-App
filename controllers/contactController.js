@@ -100,5 +100,4 @@ const deleteContact = asyncHandler(async (req, res) => {
     res.status(200).json({ message: `Contact ${req.params.id} deleted` });
 });
 
-
 module.exports = {getContacts, createContact, getContact, updateContact, deleteContact};
